@@ -25,6 +25,24 @@ This is somewhat more powerful than in other shells.
 [Line Editor](https://www.nushell.sh/book/line_editor.html)
 
 
+
+### Supplemental documentation links
+
+Some parts of the Nushell Book or the command reference are missing.
+In the section, are listed some links that exist but are not easily found.
+
+[if statement syntax](https://www.nushell.sh/commands/docs/if.html)
+
+[http get](https://www.nushell.sh/commands/docs/http_get.html)
+
+Note the format of commands with subcommands. 'http_get.html'
+
+
+### The change regarding the alias command
+
+[Nushell release 0. with note about re-write of alias77](https://www.nushell.sh/blog/2023-03-14-nushell_0_77.html)
+
+
 ## Gist for creating a Dockerfile to run Nushell:
 
 [https://gist.github.com/rwcitek/426fd6467c3dd0243db67194835d6eed](https://gist.github.com/rwcitek/426fd6467c3dd0243db67194835d6eed)
@@ -106,3 +124,9 @@ The Wikipeda page fro ICCF:
 [Bram Moolenaar's page on Wikipedia.org](https://en.wikipedia.org/wiki/Bram_Moolenaar)
 
 
+
+
+
+## Links to Nushell binaries
+
+[https://github.com/nushell/nushell/releases/tag/0.84.0](https://github.com/nushell/nushell/releases/tag/0.84.0)

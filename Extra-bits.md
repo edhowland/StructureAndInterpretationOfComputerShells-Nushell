@@ -44,6 +44,14 @@ error (stdout, stderr).
 
 [Handling stdout, stderr and exit codes](https://www.nushell.sh/book/stdout_stderr_exit_codes.html#stderr)
 
+An example that uses stdout, then stderr and then both:
+
+```sh
+echo hello out> hello.txt
+echo bad juju err> err.log
+echo both out and error o+e> both.log
+```
+
 ## Searching for Nushell on the Net
 
 Sometimes the automatic suggestions in search engines get in the way. This also
@@ -176,7 +184,52 @@ cal | select 3
 Gets the 3rd week of the current month
 
 ```bash
-nu -c 'echo $env.PATH'
+nu -c 'echo $env.PATH' -m none
 ```
 
 Every path component on its own line
+The '-m none' suppresses the table border decorations
+Not sure why this does not obey the  config.nu settings.
+
+
+
+# Getting help for commands
+
+The builtin help command actually returns structured data which can be sliced
+and diced.  Eg. Let's see what commands deal with the filesystem
+
+```sh
+help commands | where category == filesystem
+  #     name      category    command_type              usage               ... 
+  0   cd         filesystem   builtin        Change directory.              ... 
+  1   cp         filesystem   builtin        Copy files.                    ... 
+  2   glob       filesystem   builtin        Creates a list of files        ... 
+                                             and/or folders based on the        
+                                             glob pattern provided.             
+  3   load-env   filesystem   builtin        Loads an environment update    ... 
+                                             from a record.                     
+  4   ls         filesystem   builtin        List the filenames, sizes,     ... 
+                                             and modification times of          
+                                             items in a directory.              
+  5   mkdir      filesystem   builtin        Make directories, creates      ... 
+                                             intermediary directories as        
+                                             required.                          
+  6   mv         filesystem   builtin        Move files or directories.     ... 
+  7   open       filesystem   builtin        Load a file into a cell,       ... 
+                                             converting to table if             
+                                             possible (avoid by appending       
+                                              '--raw').                         
+  8   rm         filesystem   builtin        Remove files and               ... 
+                                             directories.                       
+  9   save       filesystem   builtin        Save a file.                   ... 
+ 10   start      filesystem   builtin        Open a folder, file or         ... 
+                                             website in the default             
+                                             application or viewer.             
+ 11   touch      filesystem   builtin        Creates one or more files.     ... 
+ 12   watch      filesystem   builtin        Watch for file changes and     ... 
+                                             execute Nu code when they          
+                                             happen.                            
+
+
+
+```

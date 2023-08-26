@@ -52,3 +52,17 @@ I see that you are 167yr 4month 2wk 2day 18hr 25min 17sec 722ms 196s 836ns years
 
 
 [Table of Contents](toc.md)
+
+
+### Proper use of the $in variable
+
+The $in variable must be part of the  first command/expression encountered
+in a block/closure or function.
+But you can create a holder for it:
+
+```sh
+echo foo bar baz | do {|| let x = $in; print hello; echo $x }
+0: foo
+1: bar
+2: baz
+```

@@ -61,6 +61,8 @@ is 0.83.1 Much broke when I tried to use my config from 0.82.
 
 We also have a nice little Dockerfile for you.
 
+Andthe links to Nushell binaries are in the  Links.md document.
+
 See: [Links.md](Links.md)
 
 [Next: Pipelines.md](002_Pipelines.md)
