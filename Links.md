@@ -18,6 +18,10 @@
 [Thinking in Nu](https://www.nushell.sh/book/thinking_in_nu.html)
 
 
+## The Roadmap to version 1.0
+
+[Reaching a New Phase in Nushell's development](https://www.nushell.sh/blog/2023-06-27-road-to-1_0.html)
+
 ## the REPL of Nushell
 
 This is somewhat more powerful than in other shells.
@@ -98,6 +102,8 @@ By JT, one of the original founders of Nushell and worked on Typescript
 Covers renaming and updating columns
 
 
+
+[NixConf talk on using Nushell to build stuff in Nix](https://www.youtube.com/watch?v=QwElUltNsq0)
 
 ## External resources
 

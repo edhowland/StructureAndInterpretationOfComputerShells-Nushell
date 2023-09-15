@@ -66,3 +66,9 @@ echo foo bar baz | do {|| let x = $in; print hello; echo $x }
 1: bar
 2: baz
 ```
+
+
+## Organizing your code
+
+In addition the 'source <file.nu>' command, you can also create modules in
+Nushell. For more on this see: [Modules and Submodules](ModulesAndSubmodules.md)
