@@ -117,6 +117,59 @@ Too many to cover here but here are some examples
 
 
 
+### Strings
+
+There a a plethor of string types in Nu; we are not going to cover all (5 I think)
+Most work like POSIX shells.
+
+But, one change from Bash is string interpolation
+double quoted strings do not handle any string interpolation
+
+Instead, you must prefix the "" pair with the $ sigil
+And you must include runtime interpolated contents inside of round parens
+
+E.g
+
+$"The current date is (date now)"
+
+
+#### Bare strings
+
+Bare strings (those w/o quotes of any kind, are a bit special
+First, in expressions, they are position dependant
+If they occur in the leftmost part of the expression, they are interpreted as some command (built-in, external or user defined)
+IOW: Like a function call site
+
+We saw this with the (date now) in the interpolation before
+
+
+When it comes to bare strings in other than the first position in an expression,
+the answer is: It depends
+
+For example, if calling a command/function the type of the argument might come into play
+E.g. maybe the bare string is a local file in the current dir
+Obviously,  if there is any type of absolute or relative path  notation,  it gets interpreted as a pathname
+
+And anything to the right of an assignment operator '=' is another expression, so the leftmost bare string rule applys
+
+But in lists or records, bare strings are used a lot for keys and values, as we will will see below
+
+They also can be used in conditionals
+
+
+#### Keywords
+
+A special type of bare string is one of the many built-in keywords like def and if .etc
+
+help commands | where category == core | get name
+
+<55 or sor commands>
+
+
+Note: Even the humble 'if/else' is an expression and can be assigned to a variable or passed to a function
+In some cases you must disambiguate  by wrapping it in  a pair of parens
+
+
 
 
 ## Collections and data structures
@@ -443,4 +496,149 @@ I asked over on their Discord and they replied with:
 If you want to do something more complex, then just create a custom command, IOW: A function.
 
 ### Which gets us to writing your own commands or functions
+
+
+
+## Coding in Nu
+
+In Nu, the task of providing a solution to a problem is breaking it up into many more smaller
+task that are easier to solve.. This is no different for any other programming language
+
+These smaller tasks can then be combined together like Lego bricks to compose
+bigger structures until a complete solution is reached.
+
+Here Nu, the programming language, really helps you out
+In many more ways than Bash and other shells
+
+#### The def keyword
+
+It is very easy to create a function in Nu which are called 'Custom Commands', if you peruse the Nushell Book
+
+def foo [] { echo I am foo }
+foo
+
+...
+
+Note: We get some help for free:
+
+help foo
+
+
+But we can do better than this. By preceeding the definition with a comment, it becomes
+part of the help text
+
+open start.nu | bat -r 14:16
+
+# Raises the bar
+def bar [] ...
+
+### Counted, named and typed parameters to functions
+
+Unlike Bash functions, n Nu functions have named (and optinally typed) parameters
+
+def baz [x: int, y: string, z: float] {
+  echo
+}
+
+These get checked at both compile and runtimes
+
+baz
+Error
+
+
+
+baz 1 2
+Error
+
+The type checking is rather loose, but the required arg count is mandatory
+Right now, the type checking  helps with the help command
+
+help baz
+
+
+
+
+
+
+
+#### participating in pipelines
+Nu _strongly_ encourages you to write functions that can be composed with
+pipes. To that end, the (sort of) hidden parameter exists in the body of the function and is called: '$in'
+
+def quo [] {
+  $in.foo
+}
+
+{foo: 1, bar: 2} | spam
+1
+
+
+
+And this $in can be typed:
+
+def quo []: record -> int {
+  $in.foo
+}
+
+(You might see some similarity to Python and rust in the return type definition: -> int)
+
+
+### Providing even more help
+
+Functions in Nu can take more type of parameters including:
+
+1. Default values
+2. Rest arguments (IOW: unlimited remaining arguments from required positional parameters)
+3. Optional flags
+
+
+....
+
+
+#### All of these  types can be documented inline
+
+open start start.nu | bat -p -r 19:28
+
+help kitchen sink
+
+Notice the syntax for sub commands
+Notice all the options, typed parameters, default values, optional arguments and rest arguments
+Also notice the specifications of the input type from the pipeline and the return type and that we (needlessly) use the $in variable  to pipe into the each comand
+
+
+## Creating handy Nushell scripts
+
+Nu gives us some nice help when we want to produce our own scripts.
+
+It obeys the SheBang rule
+
+We can add a nice main function which  describes our parameters and gives options and help
+for our script:
+
+open my-doubler.nu
+
+./my-doubler -h
+
+
+## What are these funny curly braces after the 'each' command: They are called closures
+
+If you have ever seen any Ruby or Rust code, then you will have seen these
+anonymous functions which are called closures. They are called Lambda functions in
+languages like Python, Java and Lisp/Scheme
+
+
+
+Perusing the command list for filters, we will see a number of commands
+that take a closure as an argument and work on a list or table from a pipeline
+
+help commands | where category == filters | get name
+
+each, pareach, filter and reduce are some of these functions.
+
+In Nu, each takes the place of map in many other functional languages,
+but can still be used like '.each {|x| x }' in Ruby where you perform some
+command witha side-effect
+
+The convention (at least in the docs) is to name the item parameter '$it'
+for the parameter that is given on every iteration of the loop.
 
