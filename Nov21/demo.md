@@ -642,3 +642,24 @@ command witha side-effect
 The convention (at least in the docs) is to name the item parameter '$it'
 for the parameter that is given on every iteration of the loop.
 
+
+
+
+### simple example with filter
+
+The filter closure must return a true boolean if the output row is to be selected.
+
+[0 1 2 3 4 5 6 7 8 9] | filter {|it| $it | is-even }
+
+
+[0 1 2 3 4 5 6 7 8 9] | filter {|it| $it mod 2 == 0 }
+...
+
+
+We can combine some techniques to make our lives easier
+
+def sum-all []: list -> int {
+  reduce -f 0 {|it, acc| $acc + $it }
+}
+
+[2 5 3 8 4 9] | sum-all
