@@ -55,7 +55,7 @@ def "white all" [code: string]  {
   let code_counts = ($code | color to-counts)
   let guess_counts = ($guess | color to-counts)
   let common_colors = ($code_counts | columns | set intersect $guess_counts)
-  $common_colors | reduce -f {} {|it, acc| $acc | insert $it   ([($code_counts | get $it), ($guess_counts | get $it)] | math min) } | values | math sum
+  $common_colors | reduce -f {} {|it, acc| $acc | insert $it   ([($code_counts | get $it), ($guess_counts | get $it)] | math min) } | values | safe-sum
 }
 
 
@@ -82,19 +82,9 @@ def "white pegs" [code: string] {
 # Correct color but wrong position and blank for all other colors
 def hint [code: string] {
   let guess = $in
+  let bpg_ = ($guess | black pegs $code)
   let wpg_ = ($guess | white pegs $code)
-  echo $wpg_
-  mut res = []
-mut idx = 0
-  for i in ($guess | black pegs $code) {
-    #print -e $"idx: ($idx), $i ($i)"
-    if $i == "B" {
-    $res = ($res | append 'B')
-    } else {
-    #$res = ($res | append 'X')
-      $res = ($res | append (let x = ($wpg_ | get $idx); $idx = ($idx + 1); $x))
-    }
-  }
-  $res | str join ''
+  for c in ($wpg_ | reverse) { $c | stack push }
+  $bpg_ | each {|it| if $it != 'B' { stack pop } else { 'B' } } | str join ''
 }
 
