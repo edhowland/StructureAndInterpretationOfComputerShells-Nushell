@@ -15,3 +15,11 @@ def "make code" [] -> string {
 
 # converts list of colors into a 4 char string
 alias color4 = str join ''
+
+
+## Set operations
+
+# Return the intersect of two lists  or a list and a record whose keys will be used as a list
+def "set intersect" [other] {
+  reduce -f [] {|it, acc|  if $it in $other { $acc | append $it } else { $acc } }
+}
