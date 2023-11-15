@@ -82,9 +82,9 @@ def "white pegs" [code: string] {
 # Correct color but wrong position and blank for all other colors
 def hint [code: string] {
   let guess = $in
-  let bpg_ = ($guess | black pegs $code)
-  let wpg_ = ($guess | white pegs $code)
-  for c in ($wpg_ | reverse) { $c | stack push }
-  $bpg_ | each {|it| if $it != 'B' { stack pop } else { 'B' } } | str join ''
-}
+let blist = ($guess | black pegs $code)
+  let wlist = ($guess | white pegs $code)
 
+  $blist | enumerate | filter {|it| $it.item == ' ' } | get index | enumerate | reduce -f $blist {|it, acc| $acc | update $it.item ($wlist | get $it.index) } | str join ''
+
+}
