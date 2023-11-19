@@ -16,7 +16,7 @@ def main [
     --fake (-t): string # Overrides the random code generator in place of this arg. Used for testing
   guesses:int = 8 # The number of guesses the codebreaker can have. Max 12
   ] {
-  if $colors { $color_names | cat; print "\nFor the hints 'B' is used for the black pegs and 'W' is used for the white pegs"; exit 0 }
+  if $colors { $color_names | cat; print "\nFor the hints 'B' is used for the black pegs and 'W' is used for the white pegs but only in the hints. They cannot be used in guesses and will never be used in codes"; exit 0 }
   if $guesses > 12 { print -e $"The number of guesses is to high: ($guesses). The max is 12"; exit 1 }
   let code = make code
 
@@ -28,7 +28,8 @@ def main [
   print "Keep adjusting your guess untill all 4 pegs are black. But this will never happen because you are so feeble minded!"
   for $trie in 1..$guesses {
     try {
-      guess $trie | hint $code
+      guess $trie | hint $code | cat
+    print ""
     } catch {|e| print -e $"Dimwit! You lost one turn:  the error was >($e.msg)<" }
   }
   print $"The correct code was ($code)"
