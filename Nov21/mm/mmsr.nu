@@ -6,7 +6,7 @@ source init.nu
 source player.nu
 source analyze.nu
 source game.nu
-
+source srfriend.nu
 
 
 # The game of MasterMind in the Nu programming language
