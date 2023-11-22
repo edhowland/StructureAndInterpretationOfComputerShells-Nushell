@@ -34,4 +34,5 @@ def main [
   }
   print $"The correct code was ($code)"
   $code | peg colors | cat
+  print "\n"
 }

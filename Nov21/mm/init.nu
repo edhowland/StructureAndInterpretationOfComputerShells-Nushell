@@ -1,7 +1,7 @@
 # init.nu: initialize guesses, games and running scores
 
 let colors = [r g b y p a]
-let color_names = [[Color 'Peg char']; [Red r] [Green g] [Blue b] [Yellow y] [Purple p] [Aqua a] [Black B] [White W]]
+let color_names = [[Color 'Peg char']; [Red r] [Green g] [Blue b] [Yellow y] [Purple p] [Aqua a] [Black B] [White W] [Blank ' ']]
 
 def "peg to-color" [] {
   let peg = $in
@@ -10,7 +10,7 @@ def "peg to-color" [] {
 
 
 def "peg colors" [] {
-  split chars | each {|c| $c | peg to-color }
+  split chars | each {|c| $c | peg to-color } | str join ' '
 }
 
 # Duplicates the value in a list . E.g. [r] => [r r] Pipe many togeter for longer lists

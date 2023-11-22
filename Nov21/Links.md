@@ -9,3 +9,6 @@
 ## Concatenative languages
 
 [https://en.wikipedia.org/wiki/Concatenative_programming_language#bodyContent](https://en.wikipedia.org/wiki/Concatenative_programming_language#bodyContent)
+
+
+[Church encoding and Concatenative Programming Languages: youtube.com](https://www.youtube.com/watch?v=TcveznrwYtk)
