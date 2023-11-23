@@ -6,12 +6,13 @@ source init.nu
 source player.nu
 source analyze.nu
 source game.nu
+source srfriend.nu
 
 
 
 # The game of MasterMind in the Nu programming language
 def main [
-  --blank (-b):string = ' ' # The character to display for blank holes in hint. Screen reader users should use something like: '%'
+    --sr (-r) # Make the output screen reader friendly
     --colors (-c) # Prints the list of colors and exits
     --fake (-t): string # Overrides the random code generator in place of this arg. Used for testing
   --guesses (-g):int = 8 # The number of guesses the codebreaker can have. Max 12
@@ -19,7 +20,11 @@ def main [
   if $colors { $color_names | cat; print "\nFor the hints 'B' is used for the black pegs and 'W' is used for the white pegs but only in the hints. They cannot be used in guesses and will never be used in codes"; exit 0 }
   if $guesses > 12 { print -e $"The number of guesses is to high: ($guesses). The max is 12"; exit 1 }
   let code = if not ($fake | is-empty) { $fake } else {  make code }
-
+  let one_ply = if $sr { 
+  {|turn| guess $turn | hint $code | srfriend }
+  } else { 
+  {|turn| guess $turn | hint $code | output } 
+  }
 
   print "I am the code maker. I have constructed a 4 color unbreakable code"
   print $"You have ($guesses) attempts, but don't even try because you will not be able to break my code"
@@ -27,7 +32,7 @@ def main [
   print "Any white pegs mean you have a correct color but not in the correct position"
 
 
-  if (  play {|turn| guess $turn | hint $code | output $blank } $guesses) {
+  if (play $one_ply $guesses) { # number of turns
     print "Congratulations! You are a winner.\nThis time\n"
   } else {
     print "Not quite up to the challenge, huh?"

@@ -18,8 +18,8 @@ def "colors valid" [] {
 
 # Asks the player for a guess. Will error if not the correct possible colors
 # or count is not exact
-def guess [req: int = 4] {
-  let g = (input 'Guess? ')
+def guess [number: int = 0, req: int = 4] {
+  let g = (input $"Guess \(($number)\)? ")
   if ($g | str length) != $req {
     simple-error $"Must enter the correct number of color guesses which must be ($req)"
   }

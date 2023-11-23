@@ -1,10 +1,17 @@
 # game.nu: various helper functions for game play
 
+# Force the input to be displayed on the terminal
+def display [] {
+  print $"($in)"
+}
+
+
 # Given a string in  the input prints it to stdout
-# If the blank character is given, then any blank or space characters are replaced with that character.
+# If the input here is 'BBBB', all black pegs, then true is returned signifying a win
 def output [blank: string = ' '] {
   let out = $in
-  print $"($out)"
+  $out | display
+  $out == 'BBBB'
 }
 
 
