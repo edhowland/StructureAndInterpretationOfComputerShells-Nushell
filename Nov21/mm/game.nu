@@ -19,8 +19,8 @@ def output [blank: string = ' '] {
 # is defined by the passed closure. If the game is won, then the closure
 # # should return true, else false in which case it loops till all plys
 # are exausted. If that happens, then play returns false
-def play [game: closure, turns: int, ply: int = 0] -> bool {
-  if $ply >= $turns {
+def play [game: closure, turns: int, ply: int = 1] -> bool {
+  if $ply > $turns {
     return false  # Because the player lost
   } else if (do $game $ply) {
     return true # The player won
