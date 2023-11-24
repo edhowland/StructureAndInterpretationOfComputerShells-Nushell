@@ -105,7 +105,6 @@ let blist = ($guess | black pegs $code)
   $blist | enumerate | black holes | zip $wlist | reduce -f $blist {|it, acc|  $acc | update $it.0 $it.1 } | str join ''
 }
 # hint5.nu Fifth attempt
-source fanners.nu
 
 # Converts enumerated table into list of lists
 def "enums to-list" []: table -> list {

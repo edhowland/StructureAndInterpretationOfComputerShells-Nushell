@@ -1,9 +1,10 @@
 #!/usr/bin/env nu
 # The game of MasterMind (https://en.wikipedia.org/wiki/Mastermind_(board_game)#Gameplay_and_rules)
 
-source stack.nu
+
 source init.nu
 source player.nu
+source fanners.nu
 source analyze.nu
 source game.nu
 source srfriend.nu

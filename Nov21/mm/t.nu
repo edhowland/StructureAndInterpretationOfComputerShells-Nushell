@@ -1,7 +1,9 @@
 # t.nu  used for testing
 source init.nu
 source player.nu
+source fanners.nu
 source analyze.nu
+source srfriend.nu
 source game.nu
 let c = 'rrbb'
 let g = 'rbgy'
