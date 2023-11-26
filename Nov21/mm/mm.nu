@@ -40,7 +40,7 @@ def main [
   Any white pegs mean you have a correct color but not in the correct position
 "
 
-  if (play $one_ply $guesses) { # number of turns
+  if (round $one_ply $guesses) { # number of turns
     print "Congratulations! You are a winner.\nThis time\n"
   } else {
     print "Not quite up to the challenge, huh?"

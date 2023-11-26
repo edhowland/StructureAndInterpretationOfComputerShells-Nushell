@@ -125,3 +125,9 @@ Good Luck!
 "
   exit
 }
+
+
+#  Plays exactly one round. Checks out for errors in input.
+def round [cl: closure,guesses: int] -> bool {
+  play (wrap error $cl) $guesses
+}

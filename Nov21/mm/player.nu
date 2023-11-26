@@ -5,8 +5,18 @@ def simple-error [m: string] {
     error make {msg: $m }
 }
 
-# Returns a more complex error
-# TBD
+
+# Surrounds execution of closure with try/catch.
+def "wrap error" [cl: closure] -> closure {
+  {|t|
+    try {
+      do $cl $t
+    } catch {|err|
+      print -e $"($err.msg)\n   and you lose one turn"
+      false
+    }
+  }
+}
 
 # Checks if input guess only has colors in $colors
 def "colors valid" [] {
