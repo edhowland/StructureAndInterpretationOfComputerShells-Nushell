@@ -1,6 +1,11 @@
 #!/usr/bin/env nu
 # The game of MasterMind (https://en.wikipedia.org/wiki/Mastermind_(board_game)#Gameplay_and_rules)
 
+# Save this file to something like 'mm.nu'.
+# then run either 'nu mm.nu' or make it executable: 'chmod +x mm.nu; ./mm.nu'
+# Use the --help option to  see the list of options which includes --rules
+# which details the game and game play and rules.
+
 
 source init.nu
 source player.nu
@@ -29,18 +34,19 @@ def main [
   {|turn| guess $turn | hint $code | output } 
   }
 
-  print "I am the code maker. I have constructed a 4 color unbreakable code"
-  print $"You have ($guesses) attempts, but don't even try because you will not be able to break my code"
-  print "After each guess you will see a hint. Black pegs in any of  4 holes  mean you have the correct color in the correct position"
-  print "Any white pegs mean you have a correct color but not in the correct position"
-
+  print $"I am the code maker. I have constructed a 4 color unbreakable code
+  You have ($guesses) attempts, but don't even try because you will not be able to break my code
+   After each guess you will see a hint. Black pegs in any of  4 holes  mean you have the correct color in the correct position
+  Any white pegs mean you have a correct color but not in the correct position
+"
 
   if (play $one_ply $guesses) { # number of turns
     print "Congratulations! You are a winner.\nThis time\n"
   } else {
     print "Not quite up to the challenge, huh?"
   }
-  print $"The correct code was ($code)"
-  $code | peg colors | cat
-  print "\n"
+  print $"The correct code was ($code)
+  ($code | peg colors)
+  
+"
 }
