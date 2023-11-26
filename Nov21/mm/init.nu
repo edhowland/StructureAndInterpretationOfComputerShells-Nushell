@@ -34,8 +34,6 @@ def "set intersect" [other] {
   reduce -f [] {|it, acc|  if $it in $other { $acc | append $it } else { $acc } }
 }
 
-
-
 # Returns the sum of the list or 0 if input is empty
 def safe-sum [] {
   let li = $in
@@ -45,5 +43,3 @@ def safe-sum [] {
     $li | math sum
   }
 }
-
-

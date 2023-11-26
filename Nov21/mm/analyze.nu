@@ -83,28 +83,8 @@ def "white fill" [count: int, max: int = 4] {
 def "white pegs" [code: string] {
   white fill ($in | white count $code)
 }
+
 # The main dude!
-
-# Returns string with B for matching color and position of guess; W  for
-# Correct color but wrong position and blank for all other colors
-def hint3 [code: string] {
-  let guess = $in
-let blist = ($guess | black pegs $code)
-  let wlist = ($guess | white pegs $code)
-
-  $blist | enumerate | filter {|it| $it.item == ' ' } | get index | enumerate | reduce -f $blist {|it, acc| $acc | update $it.item ($wlist | get $it.index) } | str join ''
-
-}
-# hint4.nu: 4th attempt at making this more point free
-
-def hint4 [code: string] {
-  let guess = $in
-let blist = ($guess | black pegs $code)
-  let wlist = ($guess | white pegs $code)
-
-  $blist | enumerate | black holes | zip $wlist | reduce -f $blist {|it, acc|  $acc | update $it.0 $it.1 } | str join ''
-}
-# hint5.nu Fifth attempt
 
 # Converts enumerated table into list of lists
 def "enums to-list" []: table -> list {
@@ -133,7 +113,7 @@ def "white loci" [wlist: list] {
 
 # Combines 2 peg lists into a sorted single list
 def "sort pegs" [wlist: list] {
-  fan out | fan in {|| black loci } {|| hole loci | white loci $wlist } {|l2| append $l2 | sort | each {|it| $it.1 } }
+  dup | fan in {|| black loci } {|| hole loci | white loci $wlist } {|l2| append $l2 | sort | each {|it| $it.1 } }
 }
 
 

@@ -1,7 +1,7 @@
 # fanners.nu : various fanning methods
 
 # Duplicates its input
-def "fan out" [] {
+def dup [] {
   let it = $in
   [$it, $it]
 }
